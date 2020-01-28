@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const baseConfig = {
   devtool: 'cheap-source-map',
@@ -44,3 +45,5 @@ const baseConfig = {
     extensions: [".js", ".vue", ".json"],
   }
 };
+
+module.exports = baseConfig;
