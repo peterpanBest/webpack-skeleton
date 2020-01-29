@@ -40,6 +40,7 @@ const baseConfig = {
           {
             loader: "url-loader",
             options: {
+              esModule: false,
               limit: 8192,
               name: utils.assetsPath("img/[name].[hash:7].[ext]")
             }
@@ -53,11 +54,24 @@ const baseConfig = {
           name: utils.assetsPath("fonts/[name].[hash:7].[ext]")
         }
       },
+      {
+          test: /\.scss$/,
+          use: [
+              "style-loader", // 将 JS 字符串生成为 style 节点
+              "css-loader", // 将 CSS 转化成 CommonJS 模块
+              "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
+          ]
+      }
     ]
   },
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
       filename: "index.html",
       template: path.join(__dirname, "../static/public/index.html"),
       chunks: ["vendor", "app"]
@@ -65,6 +79,9 @@ const baseConfig = {
   ],
   resolve: {
     extensions: [".js", ".vue", ".json"],
+    alias: {
+      "@": path.resolve(__dirname, "../src")
+    }
   }
 };
 
